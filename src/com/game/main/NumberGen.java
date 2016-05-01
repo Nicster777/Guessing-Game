@@ -15,6 +15,10 @@ public class NumberGen {
 		cap = c;
 	}
 	
+	public int getCap() {
+		return cap;
+	}
+	
 	public int genNumber() {
 		return rand.nextInt(cap + 1);
 	}

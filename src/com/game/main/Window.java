@@ -1,5 +1,6 @@
 package com.game.main;
 
+import java.awt.DisplayMode;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -7,18 +8,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import javax.swing.JTextArea;
-import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
 
 public class Window {
 
 	JFrame frame;
 	private JTextField guessField;
 	private JTextField capField;
+	private NumberGen gen = new NumberGen();
+	
+	private int score = 0;
 	
 	public Window() {
 		initialize();
@@ -67,14 +67,10 @@ public class Window {
 		frame.getContentPane().add(btnSetCap);
 		
 		JTextArea output = new JTextArea();
-		output.setWrapStyleWord(true);
 		output.setEditable(false);
+		output.setLineWrap(true);
 		output.setBounds(168, 11, 266, 205);
 		frame.getContentPane().add(output);
-		
-		JButton btnClear = new JButton("Clear");
-		btnClear.setBounds(345, 227, 89, 23);
-		frame.getContentPane().add(btnClear);
 		
 		
 		/* ACTION LISTENERS */
@@ -83,8 +79,40 @@ public class Window {
 		guessButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Guess Pressed");
+				output.setText("");
+				
+				
+				if (rdbtnNumbers.isSelected()) {
+					if (gen.getCap() != 0) {
+						int guess;
+						
+						try {
+							guess = Integer.parseInt(guessField.getText());
+							int rand = gen.genNumber();
+							
+							
+							if (guess == rand) {
+								score++;
+							}
+							
+							output.append("Guess: " + guess + "\n");
+							output.append("Number: " + rand + "\n");
+							output.append("Score: " + score + "\n");
+						} catch (NumberFormatException ex) {
+							output.append("Enter a Guess (Number)\n");
+							guess = 0;
+							guessField.requestFocus();
+						}
+						
+					} else {
+						output.append("Set a Cap Number!\n");
+						capField.requestFocus();
+					}
+				} else if (rdbtnColors.isSelected()) {
+					
+				}
 			}
+				
 		});
 		
 		// get cap button
@@ -93,15 +121,9 @@ public class Window {
 			public void mouseClicked(MouseEvent arg0) {
 				System.out.println("Set Cap Pressed");
 				System.out.println(capField.getText());
-				output.append("Number Cap Set To: " + capField.getText() + "\n");
-			}
-		});
-		
-		btnClear.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("Clear Pressed");
-				output.setText("");
+				int cap = Integer.parseInt(capField.getText());
+				output.append("Number Cap Set To: " + cap + "\n");
+				gen.setCap(cap);
 			}
 		});
 		
@@ -126,8 +148,5 @@ public class Window {
 				output.append("Switched to Number mode.\n");
 			}
 		});
-		
-		
-		
 	}
 }
