@@ -4,18 +4,10 @@ import java.util.Random;
 
 public class ColorGen {
 	
-	private String[] colors = {"Blue", "Black", "Red"};
-	
 	private Random rand = new Random();
-	private int index;
+	private String[] colors = {"Blue","Red","Green","Yellow"};
 	
 	public String genColor() {
-		
-		index = rand.nextInt(colors.length);
-		
-		return colors[index];
-		
+		return colors[rand.nextInt(colors.length)];
 	}
-	
-	
 }
