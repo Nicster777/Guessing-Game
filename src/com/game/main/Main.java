@@ -18,10 +18,12 @@ public class Main {
 		int score = 0;
 		String yes = "y";
 		
+		ColorGen cGen = new ColorGen();
 		
 		// add a better check later
 		
 		System.out.println("--Guessing Game (0 - "+cap+")--" + "\n-Enter an letter to stop-\n");
+		System.out.println("Color: " + cGen.genColor());
 		
 		while (yes.toUpperCase().equals("Y")) {
 			int num = rand.nextInt(cap + 1);
