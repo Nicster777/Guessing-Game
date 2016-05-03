@@ -1,6 +1,5 @@
 package com.game.main;
 
-import java.awt.DisplayMode;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -137,7 +136,7 @@ public class Window {
 				output.append("Switched to Color mode.\n");
 			}
 		});
-		
+
 		// radio buttons numbers
 		rdbtnNumbers.addMouseListener(new MouseAdapter() {
 			@Override
